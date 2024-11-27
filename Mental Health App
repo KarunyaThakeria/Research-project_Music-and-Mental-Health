@@ -1,0 +1,405 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MentalHealthApp());
+}
+
+class MentalHealthApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Mental Health App',
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+      ),
+      home: WelcomeScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class WelcomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Welcome to Mental Health Predictor',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignupScreen()),
+                );
+              },
+              child: Text('Get Started'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SignupScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Sign Up')),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => QuestionnaireScreen()),
+            );
+          },
+          child: Text('Proceed to Questionnaire'),
+        ),
+      ),
+    );
+  }
+}
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MentalHealthApp());
+}
+
+class MentalHealthApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Mental Health App',
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        fontFamily: 'Raleway',
+      ),
+      home: WelcomeScreen(),
+    );
+  }
+}
+
+class WelcomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Center(
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/welcome_bg.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+          SafeArea(
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Welcome to the Mental Health App',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurple,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 50.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.deepPurple,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUpScreen()),
+                  );
+                },
+                child: Text(
+                  'Get Started',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SignUpScreen extends StatelessWidget {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFFFFD6FF),
+      appBar: AppBar(
+        title: Text('Sign Up'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.person_add, size: 80, color: Colors.deepPurple),
+            SizedBox(height: 20),
+            Text(
+              'Create an Account',
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.deepPurple),
+            ),
+            SizedBox(height: 20),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Username',
+                style: TextStyle(fontSize: 16, color: Colors.deepPurple),
+              ),
+            ),
+            TextField(
+              controller: usernameController,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+            SizedBox(height: 15),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Password',
+                style: TextStyle(fontSize: 16, color: Colors.deepPurple),
+              ),
+            ),
+            TextField(
+              controller: passwordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => QuestionnaireScreen()),
+                );
+              },
+              child: Text('Sign Up', style: TextStyle(fontSize: 18)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class QuestionnaireScreen extends StatefulWidget {
+  @override
+  _QuestionnaireScreenState createState() => _QuestionnaireScreenState();
+}
+
+class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
+  final List<String> questions = [
+    "How frequently do you listen to Classical music?",
+    "How frequently do you listen to Country music?",
+    "How frequently do you listen to EDM music?",
+    "How frequently do you listen to Folk music?",
+    "How frequently do you listen to Gospel music?",
+    "How frequently do you listen to Hip hop music?",
+    "How frequently do you listen to Jazz music?",
+    "How frequently do you listen to K-pop music?",
+    "How frequently do you listen to Latin music?",
+    "How frequently do you listen to Lofi music?",
+    "How frequently do you listen to Metal music?",
+    "How frequently do you listen to Pop music?",
+    "How frequently do you listen to R&B music?",
+    "How frequently do you listen to Rap music?",
+    "How frequently do you listen to Rock music?",
+    "How frequently do you listen to Video game music?",
+    "Rate your Anxiety level (1-10).",
+    "Rate your Depression level (1-10).",
+    "Rate your Insomnia level (1-10).",
+    "Rate your OCD level (1-10).",
+  ];
+
+  final PageController _pageController = PageController();
+  Map<int, String> selectedOptions = {};
+
+  void nextQuestion() {
+    if (_pageController.page! < questions.length - 1) {
+      _pageController.nextPage(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PredictionScreen(predictionResult: "Improve"),
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Questionnaire'),
+      ),
+      body: PageView.builder(
+        controller: _pageController,
+        physics: NeverScrollableScrollPhysics(), // Prevent manual swiping
+        itemCount: questions.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  questions[index],
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20),
+                if (index < 16) // For frequency questions
+                  Column(
+                    children: [
+                      for (String option in [
+                        "Never",
+                        "Rarely",
+                        "Sometimes",
+                        "Very frequently"
+                      ])
+                        RadioListTile<String>(
+                          title: Text(option),
+                          value: option,
+                          groupValue: selectedOptions[index],
+                          activeColor: Colors.purple,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedOptions[index] = value!;
+                            });
+                          },
+                        ),
+                    ],
+                  )
+                else // For rating questions
+                  Slider(
+                    value: selectedOptions[index] == null
+                        ? 5.0
+                        : double.parse(selectedOptions[index]!),
+                    min: 1,
+                    max: 10,
+                    divisions: 9,
+                    label: selectedOptions[index] ?? "5",
+                    onChanged: (value) {
+                      setState(() {
+                        selectedOptions[index] = value.toString();
+                      });
+                    },
+                  ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    nextQuestion();
+                  },
+                  child: Text(index < questions.length - 1 ? "Next" : "Submit"),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class PredictionScreen extends StatelessWidget {
+  final String predictionResult;
+
+  PredictionScreen({required this.predictionResult});
+
+  @override
+  Widget build(BuildContext context) {
+    String imageAsset = "";
+    String displayText = "";
+
+    if (predictionResult == "Worsen") {
+      imageAsset = "assets/Bad.png";
+      displayText = "Your Mental Health Has Worsened";
+    } else if (predictionResult == "Improve") {
+      imageAsset = "assets/Good.png";
+      displayText = "Your Mental Health Has Improved";
+    } else {
+      imageAsset = "assets/Improving.png";
+      displayText = "Your Mental Health Has No Effect";
+    }
+
+    return Scaffold(
+      appBar: AppBar(title: Text('Prediction Result')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              displayText,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 20),
+            Image.asset(imageAsset, height: 450, width: 400),
+          ],
+        ),
+      ),
+    );
+  }
+}
