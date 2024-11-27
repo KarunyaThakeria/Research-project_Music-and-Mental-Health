@@ -8,76 +8,6 @@ class MentalHealthApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Mental Health App',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
-      home: WelcomeScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class WelcomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Welcome to Mental Health Predictor',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignupScreen()),
-                );
-              },
-              child: Text('Get Started'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class SignupScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Sign Up')),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => QuestionnaireScreen()),
-            );
-          },
-          child: Text('Proceed to Questionnaire'),
-        ),
-      ),
-    );
-  }
-}
-
-import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MentalHealthApp());
-}
-
-class MentalHealthApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Mental Health App',
       theme: ThemeData(
@@ -279,12 +209,38 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
         curve: Curves.easeInOut,
       );
     } else {
+      // Calculate prediction based on user input
+      String predictionResult = calculatePrediction();
+
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => PredictionScreen(predictionResult: "Improve"),
+          builder: (context) =>
+              PredictionScreen(predictionResult: predictionResult),
         ),
       );
+    }
+  }
+
+  String calculatePrediction() {
+    // Retrieve disorder levels
+    double anxietyLevel = double.parse(
+        selectedOptions[16] ?? "5.0"); // Default to mid-level if not answered
+    double depressionLevel = double.parse(selectedOptions[17] ?? "5.0");
+    double insomniaLevel = double.parse(selectedOptions[18] ?? "5.0");
+    double ocdLevel = double.parse(selectedOptions[19] ?? "5.0");
+
+    // Calculate average of disorder levels
+    double averageDisorderLevel =
+        (anxietyLevel + depressionLevel + insomniaLevel + ocdLevel);
+
+    // Determine prediction based on thresholds
+    if (averageDisorderLevel > 23) {
+      return "Worsen";
+    } else if (averageDisorderLevel >= 18) {
+      return "No effect";
+    } else {
+      return "Improve";
     }
   }
 
@@ -396,7 +352,7 @@ class PredictionScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 20),
-            Image.asset(imageAsset, height: 450, width: 400),
+            Image.asset(imageAsset, height: 300, width: 350),
           ],
         ),
       ),
